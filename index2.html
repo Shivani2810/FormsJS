@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Advanced HTML Form</title>
+
+  <style>
+    body { font-family: Arial, sans-serif; padding: 24px; background: #f7f7fb; }
+    form { max-width: 720px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 6px 24px rgba(0,0,0,0.08); }
+    fieldset { border: 1px solid #ddd; border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+    legend { font-weight: 700; padding: 0 8px; }
+    label { display: block; margin: 10px 0 6px; font-weight: 600; }
+    input, select, textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; }
+    .row { display: flex; gap: 12px; }
+    .row > div { flex: 1; }
+    .hint { font-size: 12px; color: #555; margin-top: 4px; }
+    .inline { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+    .inline label { display: inline; margin: 0; font-weight: 500; }
+    .btns { display: flex; gap: 10px; margin-top: 16px; }
+    button { padding: 10px 14px; border: 0; border-radius: 8px; cursor: pointer; font-weight: 700; }
+    button[type="submit"] { background: #2563eb; color: white; }
+    button[type="reset"] { background: #e5e7eb; }
+  </style>
+</head>
+
+<body>
+
+<form action="/submit" method="POST" enctype="multipart/form-data" autocomplete="on" novalidate>
+  <!-- novalidate disables browser popup validation (remove if you want browser validation UI) -->
+
+  <!-- 1) Hidden field (sent but not visible) -->
+  <input type="hidden" name="source" value="forms-practice" />
+
+  <h1 style="text-align:center; margin-bottom: 6px;">Registration + Feedback Form</h1>
+  <p style="text-align:center; margin-top:0; color:#555;">
+    This form shows real-world input types & validation features.
+  </p>
+
+  <!-- 2) Personal Details -->
+  <fieldset>
+    <legend>Personal Details</legend>
+
+    <div class="row">
+      <div>
+        <label for="fullName">Full Name *</label>
+        <input
+          id="fullName"
+          name="fullName"
+          type="text"
+          placeholder="Shivani Mandhania"
+          required
+          minlength="3"
+          maxlength="40"
+        />
+        <div class="hint">Min 3 chars, max 40.</div>
+      </div>
+
+      <div>
+        <label for="username">Username *</label>
+        <input
+          id="username"
+          name="username"
+          type="text"
+          placeholder="shivani2810"
+          required
+          pattern="^[a-zA-Z0-9_]{3,16}$"
+          title="3–16 characters: letters, numbers, underscore only"
+        />
+        <div class="hint">3–16 chars. Only letters/numbers/_</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label for="email">Email *</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          placeholder="shivani@example.com"
+          required
+        />
+      </div>
+
+      <div>
+        <label for="phone">Phone (India) *</label>
+        <input
+          id="phone"
+          name="phone"
+          type="tel"
+          placeholder="10-digit number"
+          required
+          pattern="^[6-9]\d{9}$"
+          title="Enter a valid 10-digit Indian mobile number"
+        />
+        <div class="hint">Must start with 6–9 and be 10 digits.</div>
+      </div>
+    </div>
+
+    <label for="dob">Date of Birth</label>
+    <input id="dob" name="dob" type="date" />
+
+    <label for="website">Portfolio Website</label>
+    <input id="website" name="website" type="url" placeholder="https://..." />
+  </fieldset>
+
+  <!-- 3) Account / Security -->
+  <fieldset>
+    <legend>Account & Security</legend>
+
+    <div class="row">
+      <div>
+        <label for="password">Password *</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          required
+          minlength="8"
+          placeholder="Min 8 characters"
+        />
+      </div>
+
+      <div>
+        <label for="confirmPassword">Confirm Password *</label>
+        <input
+          id="confirmPassword"
+          name="confirmPassword"
+          type="password"
+          required
+          minlength="8"
+          placeholder="Re-enter password"
+        />
+      </div>
+    </div>
+
+    <label>Security Question</label>
+    <select name="securityQuestion" required>
+      <option value="">-- Select one --</option>
+      <option value="pet">Your first pet’s name?</option>
+      <option value="school">Your school name?</option>
+      <option value="city">City you were born in?</option>
+    </select>
+
+    <label for="securityAnswer">Security Answer *</label>
+    <input id="securityAnswer" name="securityAnswer" type="text" required />
+  </fieldset>
+
+  <!-- 4) Preferences -->
+  <fieldset>
+    <legend>Preferences</legend>
+
+    <label>Gender</label>
+    <div class="inline">
+      <label><input type="radio" name="gender" value="female" required /> Female</label>
+      <label><input type="radio" name="gender" value="male" /> Male</label>
+      <label><input type="radio" name="gender" value="other" /> Other</label>
+    </div>
+
+    <label>Skills (choose multiple)</label>
+    <div class="inline">
+      <label><input type="checkbox" name="skills" value="react" /> React</label>
+      <label><input type="checkbox" name="skills" value="js" /> JavaScript</label>
+      <label><input type="checkbox" name="skills" value="tailwind" /> Tailwind</label>
+      <label><input type="checkbox" name="skills" value="git" /> Git</label>
+    </div>
+
+    <label for="level">Experience Level</label>
+    <input id="level" name="level" type="range" min="0" max="10" value="5" />
+    <div class="hint">0 = beginner, 10 = expert</div>
+
+    <label for="favColor">Favorite UI Color</label>
+    <input id="favColor" name="favColor" type="color" value="#2563eb" />
+  </fieldset>
+
+  <!-- 5) Search-like input using datalist -->
+  <fieldset>
+    <legend>Extra Inputs</legend>
+
+    <label for="city">City (Datalist Suggestions)</label>
+    <input id="city" name="city" list="cities" placeholder="Start typing…" />
+    <datalist id="cities">
+      <option value="Delhi"></option>
+      <option value="Mumbai"></option>
+      <option value="Bengaluru"></option>
+      <option value="Chandigarh"></option>
+      <option value="Ludhiana"></option>
+    </datalist>
+
+    <label for="resume">Upload Resume (PDF)</label>
+    <input id="resume" name="resume" type="file" accept=".pdf" />
+    <div class="hint">File upload needs enctype="multipart/form-data".</div>
+
+    <label for="notes">Notes / Feedback</label>
+    <textarea
+      id="notes"
+      name="notes"
+      rows="4"
+      placeholder="Write your feedback..."
+      maxlength="200"
+    ></textarea>
+    <div class="hint">Max 200 characters.</div>
+  </fieldset>
+
+  <!-- 6) Readonly/Disabled demo -->
+  <fieldset>
+    <legend>Readonly / Disabled Demo</legend>
+
+    <label for="readonlyDemo">Readonly field (can copy, cannot edit)</label>
+    <input id="readonlyDemo" name="readonlyDemo" type="text" value="Readonly value" readonly />
+
+    <label for="disabledDemo">Disabled field (won’t be submitted)</label>
+    <input id="disabledDemo" name="disabledDemo" type="text" value="Disabled value" disabled />
+  </fieldset>
+
+  <!-- 7) Terms -->
+  <div class="inline" style="margin-top: 10px;">
+    <label>
+      <input type="checkbox" name="terms" required />
+      I agree to the Terms & Conditions *
+    </label>
+  </div>
+
+  <!-- Buttons -->
+  <div class="btns">
+    <button type="submit">Submit Form</button>
+    <button type="reset">Reset</button>
+  </div>
+
+  <p class="hint" style="margin-top: 12px;">
+    Tip: Remove <b>novalidate</b> if you want the browser’s default validation popups.
+  </p>
+</form>
+
+</body>
+</html>
